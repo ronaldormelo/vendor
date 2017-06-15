@@ -33,11 +33,6 @@ class BoletoBB extends AbstractBoleto
      */
     protected $formatacaoNossoNumero;
 
-    /**
-     * @var boolean
-     */
-    protected $mostraInstrucoes;
-    
     public function getFormatacaoConvenio()
     {
         return $this->formatacaoConvenio;
@@ -59,15 +54,5 @@ class BoletoBB extends AbstractBoleto
         $this->formatacaoNossoNumero = $formatacaoNossoNumero;
         return $this;
     }
-    
-	public function getMostraInstrucoes() {
-		return $this->mostraInstrucoes;
-	}
-	
-	public function setMostraInstrucoes($mostraInstrucoes) {
-		$this->mostraInstrucoes = $mostraInstrucoes;
-		return $this;
-	}
-	
 
 }

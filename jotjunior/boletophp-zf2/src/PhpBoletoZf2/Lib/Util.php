@@ -31,9 +31,9 @@ abstract class Util
      * @param string $numero
      * @return int
      */
-    public static function digitoVerificadorNossoNumero($numero, $base =9)
+    public static function digitoVerificadorNossoNumero($numero)
     {
-        $resto2 = self::modulo11($numero, $base, 1);
+        $resto2 = self::modulo11($numero, 9, 1);
         $digito = 11 - $resto2;
         if ($digito == 10) {
             $dv = "P";
@@ -197,12 +197,6 @@ abstract class Util
         } elseif ($r == 1) {
             $resto = $soma % 11;
             return $resto;
-        } elseif ($r == 2) {
-        	$resto = $soma % 11;
-        	$res = 11-$resto;
-        	if (in_array($res,array(0,10,11)))
-        		$res = 1;
-        	return $res;
         }
     }
 
