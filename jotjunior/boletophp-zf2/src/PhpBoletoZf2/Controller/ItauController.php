@@ -57,8 +57,8 @@ class ItauController extends AbstractActionController {
             $data = [
                 'dataVencimento' => $dataVencimentoAux->format('d/m/Y'),
                 'valor' => \Estrutura\Helpers\Valor::float($pagamento->getVlDocumento()),
-                'nossoNumero' => \Estrutura\Helpers\String::mascaraformato('########', $pagamento->getId()),
-                'numeroDocumento' => \Estrutura\Helpers\String::mascaraformato('########', $pagamento->getId()),
+                'nossoNumero' => \Estrutura\Helpers\Texto::mascaraformato('########', $pagamento->getId()),
+                'numeroDocumento' => \Estrutura\Helpers\Texto::mascaraformato('########', $pagamento->getId()),
                 'dataDocumento' => date('d/m/Y'),
                 'dataProcessamento' => date('d/m/Y'),
                 'demonstrativo1' => 'GanheMais.Net',
