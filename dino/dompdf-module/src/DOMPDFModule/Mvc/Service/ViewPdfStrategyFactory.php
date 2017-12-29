@@ -12,8 +12,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Raymond J. Kolbe <raymond.kolbe@maine.edu>
- * @copyright Copyright (c) 2012 University of Maine
+ * @author Raymond J. Kolbe <rkolbe@gmail.com>
+ * @copyright Copyright (c) 2012 University of Maine, 2016 Raymond J. Kolbe
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
@@ -31,14 +31,11 @@ class ViewPdfStrategyFactory implements FactoryInterface
      * Retrieves the ViewPdfRenderer service from the service locator, and
      * injects it into the constructor for the PDF strategy.
      *
-     * @param  ServiceLocatorInterface $serviceLocator 
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return PdfStrategy
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $pdfRenderer = $serviceLocator->get('ViewPdfRenderer');
-        $pdfStrategy = new PdfStrategy($pdfRenderer);
-        
-        return $pdfStrategy;
+        return new PdfStrategy($serviceLocator->get('ViewPdfRenderer'));
     }
 }

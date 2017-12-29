@@ -12,54 +12,95 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Raymond J. Kolbe <raymond.kolbe@maine.edu>
- * @copyright Copyright (c) 2012 University of Maine
+ * @author Raymond J. Kolbe <rkolbe@gmail.com>
+ * @copyright Copyright (c) 2012 University of Maine, 2016 Raymond J. Kolbe
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 namespace DOMPDFModule\View\Renderer;
 
+use DOMPDFModule\View\Model\PdfModel;
+use Zend\View\Exception\InvalidArgumentException;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Resolver\ResolverInterface as Resolver;
-use DOMPDF;
+use Dompdf\Dompdf;
 
 class PdfRenderer implements Renderer
 {
+    /**
+     * @var Dompdf|null
+     */
     private $dompdf = null;
+
+    /**
+     * @var Resolver|null
+     */
     private $resolver = null;
+
+    /**
+     * @var Renderer|null
+     */
     private $htmlRenderer = null;
-    
+
+    /**
+     * @param Renderer $renderer
+     * @return $this
+     */
     public function setHtmlRenderer(Renderer $renderer)
     {
         $this->htmlRenderer = $renderer;
         return $this;
     }
-    
+
+    /**
+     * @return Renderer
+     */
     public function getHtmlRenderer()
     {
         return $this->htmlRenderer;
     }
-    
-    public function setEngine(DOMPDF $dompdf)
+
+    /**
+     * @param Dompdf $dompdf
+     * @return $this
+     */
+    public function setEngine(Dompdf $dompdf)
     {
         $this->dompdf = $dompdf;
         return $this;
     }
-    
+
+    /**
+     * @return Dompdf
+     */
     public function getEngine()
     {
         return $this->dompdf;
     }
+
+    /**
+     * @param Resolver $resolver
+     * @return $this
+     */
+    public function setResolver(Resolver $resolver)
+    {
+        $this->resolver = $resolver;
+        return $this;
+    }
     
     /**
-     * Renders values as a PDF
-     *
-     * @param  string|Model $name The script/resource process, or a view model
-     * @param  null|array|\ArrayAccess Values to use during rendering
-     * @return string The script output.
+     * {@inheritdoc}
      */
     public function render($nameOrModel, $values = null)
     {
+        if (!($nameOrModel instanceof PdfModel)) {
+            throw new InvalidArgumentException(sprintf(
+                '%s expects a PdfModel as the first argument; received "%s"',
+                __METHOD__,
+                (is_object($nameOrModel) ? get_class($nameOrModel) : gettype($nameOrModel))
+            ));
+        }
+
         $html = $this->getHtmlRenderer()->render($nameOrModel, $values);
         
         $paperSize = $nameOrModel->getOption('paperSize');
@@ -67,18 +108,12 @@ class PdfRenderer implements Renderer
         $basePath = $nameOrModel->getOption('basePath');
         
         $pdf = $this->getEngine();
-        $pdf->set_paper($paperSize, $paperOrientation);
-        $pdf->set_base_path($basePath);
+        $pdf->setPaper($paperSize, $paperOrientation);
+        $pdf->setBasePath($basePath);
         
-        $pdf->load_html($html);
+        $pdf->loadHtml($html);
         $pdf->render();
         
         return $pdf->output();
-    }
-
-    public function setResolver(Resolver $resolver)
-    {
-        $this->resolver = $resolver;
-        return $this;
     }
 }

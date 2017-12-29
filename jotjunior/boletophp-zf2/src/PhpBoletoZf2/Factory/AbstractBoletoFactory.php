@@ -81,7 +81,6 @@ abstract class AbstractBoletoFactory implements FactoryInterface
             $this->cedente = new Cedente($this->config['php-zf2-boleto'][$this->banco->getCodigoBanco()]['dados_cedente']);
         }
 
-
         return $this;
     }
 

@@ -12,8 +12,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Raymond J. Kolbe <raymond.kolbe@maine.edu>
- * @copyright Copyright (c) 2012 University of Maine
+ * @author Raymond J. Kolbe <rkolbe@gmail.com>
+ * @copyright Copyright (c) 2012 University of Maine, 2016 Raymond J. Kolbe
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
@@ -30,7 +30,7 @@ class PdfStrategy implements ListenerAggregateInterface
     /**
      * @var \Zend\Stdlib\CallbackHandler[]
      */
-    protected $listeners = array();
+    protected $listeners = [];
 
     /**
      * @var PdfRenderer
@@ -57,8 +57,8 @@ class PdfStrategy implements ListenerAggregateInterface
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
-        $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, [$this, 'selectRenderer'], $priority);
+        $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, [$this, 'injectResponse'], $priority);
     }
 
     /**
@@ -79,18 +79,18 @@ class PdfStrategy implements ListenerAggregateInterface
     /**
      * Detect if we should use the PdfRenderer based on model type
      *
-     * @param  ViewEvent $e
+     * @param  ViewEvent $event
      * @return null|PdfRenderer
      */
-    public function selectRenderer(ViewEvent $e)
+    public function selectRenderer(ViewEvent $event)
     {
-        $model = $e->getModel();
+        $model = $event->getModel();
         
         if ($model instanceof Model\PdfModel) {
             return $this->renderer;
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -99,34 +99,37 @@ class PdfStrategy implements ListenerAggregateInterface
      * @param  ViewEvent $e
      * @return void
      */
-    public function injectResponse(ViewEvent $e)
+    public function injectResponse(ViewEvent $event)
     {
-        $renderer = $e->getRenderer();
+        $renderer = $event->getRenderer();
         if ($renderer !== $this->renderer) {
             // Discovered renderer is not ours; do nothing
             return;
         }
 
-        $result = $e->getResult();
-
+        $result = $event->getResult();
         if (!is_string($result)) {
-            // @todo Potentially throw an exception here since we should *always* get back a result.
+            // No output to display. Good bye!
             return;
         }
         
-        $response = $e->getResponse();
+        $response = $event->getResponse();
         $response->setContent($result);
-        $response->getHeaders()->addHeaderLine('content-type', 'application/pdf');
-        
-        $fileName = $e->getModel()->getOption('filename');
-        if (isset($fileName)) {
-            if (substr($fileName, -4) != '.pdf') {
-                $fileName .= '.pdf';
-            }
-            
-            $response->getHeaders()->addHeaderLine(
-            	'Content-Disposition', 
-            	'attachment; filename=' . $fileName);
+
+        $model   = $event->getModel();
+        $options = $model->getOptions();
+
+        $fileName        = $options['fileName'];
+        $dispositionType = $options['display'];
+
+        if (substr($fileName, -4) != '.pdf') {
+            $fileName .= '.pdf';
         }
+
+        $headerValue = sprintf('%s; filename="%s"', $dispositionType, $fileName);
+
+        $response->getHeaders()->addHeaderLine('Content-Disposition', $headerValue);
+        $response->getHeaders()->addHeaderLine('Content-Length', strlen($result));
+        $response->getHeaders()->addHeaderLine('Content-Type', 'application/pdf');
     }
 }

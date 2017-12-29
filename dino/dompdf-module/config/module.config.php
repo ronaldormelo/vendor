@@ -1,9 +1,26 @@
 <?php
+/*
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * @author Raymond J. Kolbe <rkolbe@gmail.com>
+ * @copyright Copyright (c) 2012 University of Maine, 2016 Raymond J. Kolbe
+ * @license	http://www.opensource.org/licenses/mit-license.php MIT License
+ */
 
 namespace DOMPDFModule;
 
-return array(
-    'dompdf_module' => array(
+return [
+    'dompdf_module' => [
         /**
          * The location of the DOMPDF font directory
          *
@@ -62,20 +79,9 @@ return array(
          * should be an absolute path.
          * This is only checked on command line call by dompdf.php, but not by
          * direct class use like:
-         * $dompdf = new DOMPDF();	$dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
+         * $dompdf = new DOMPDF(); $dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
          */
         'chroot' => realpath(__DIR__ . '/../../../dompdf/dompdf/'),
-
-        /**
-         * Whether to use Unicode fonts or not.
-         *
-         * When set to true the PDF backend must be set to "CPDF" and fonts must be
-         * loaded via load_font.php.
-         *
-         * When enabled, dompdf can support all Unicode glyphs.  Any glyphs used in a
-         * document must be present in your fonts, however.
-         */
-        'unicode_enabled' => true,
 
         /**
          * Whether to make font subsetting or not.
@@ -136,7 +142,7 @@ return array(
          * If pdflib present in web server and auto or selected explicitely above,
          * a real license code must exist!
          */
-        //def("DOMPDF_PDFLIB_LICENSE", "your license key here");
+        'pdflib_license' => '',
 
         /**
          * The default paper size.
@@ -245,44 +251,35 @@ return array(
         'font_height_ratio' => 1.1,
 
         /**
-         * Enable CSS float
-         *
-         * Allows people to disabled CSS float support
-         * @var bool
-         */
-        'enable_css_float' => false,
-
-        /**
          * Use the more-than-experimental HTML5 Lib parser
          */
         'enable_html5parser' => false,
-
-        'debug_png'	=> false,
+        'debug_png' => false,
         'debug_keep_temp' => false,
         'debug_css' => false,
         'debug_layout' => false,
-        'debug_layout_links' => false,
+        'debug_layout_lines' => false,
         'debug_layout_blocks' => false,
         'debug_layout_inline' => false,
         'debug_layout_padding_box' => false
-    ),
-    'view_manager' => array(
-        'strategies' => array(
+    ],
+    'view_manager' => [
+        'strategies' => [
             'ViewPdfStrategy'
-        )
-    ),
-    'service_manager' => array(
-        'shared' => array(
+        ]
+    ],
+    'service_manager' => [
+        'shared' => [
             /**
              * DOMPDF itself has issues rendering twice in a row so we force a
              * new instance to be created.
              */
             'DOMPDF' => false
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'DOMPDF'          => __NAMESPACE__ . '\Service\DOMPDFFactory',
             'ViewPdfRenderer' => __NAMESPACE__ . '\Mvc\Service\ViewPdfRendererFactory',
             'ViewPdfStrategy' => __NAMESPACE__ . '\Mvc\Service\ViewPdfStrategyFactory',
-        )
-    ),
-);
+        ]
+    ]
+];
