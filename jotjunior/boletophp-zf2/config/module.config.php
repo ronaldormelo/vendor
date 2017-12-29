@@ -36,27 +36,17 @@ return array(
                     'default' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => '[/:controller[/:format]]',
+                            'route' => '[/:controller[/:format[/:id]]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'format' => '(pdf|html)',
+                                'id' => '[a-zA-Z0-9_-]*',
                             ),
                             'defaults' => array(
                                 '__NAMESPACE__' => 'PhpBoletoZf2\Controller',
                                 'action' => 'index',
                                 'format' => '.html',
-                            ),
-                        ),
-                    ),
-                    'demo' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route' => '[/:controller]/demo',
-                            'defaults' => array(
-                                '__NAMESPACE__' => 'PhpBoletoZf2\Controller',
-                                'controller' => 'boleto',
-                                'action' => 'demo',
                             ),
                         ),
                     ),
@@ -66,10 +56,10 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'PhpBoletoZf2\Controller\Bradesco' => 'PhpBoletoZf2\Controller\BradescoController',
-            'PhpBoletoZf2\Controller\BB' => 'PhpBoletoZf2\Controller\BBController',
-            'PhpBoletoZf2\Controller\Caixa' => 'PhpBoletoZf2\Controller\CaixaController',
-            'PhpBoletoZf2\Controller\CaixaSigcb' => 'PhpBoletoZf2\Controller\CaixaSigcbController',
+//            'PhpBoletoZf2\Controller\Bradesco' => 'PhpBoletoZf2\Controller\BradescoController',
+//            'PhpBoletoZf2\Controller\BB' => 'PhpBoletoZf2\Controller\BBController',
+//            'PhpBoletoZf2\Controller\Caixa' => 'PhpBoletoZf2\Controller\CaixaController',
+//            'PhpBoletoZf2\Controller\CaixaSigcb' => 'PhpBoletoZf2\Controller\CaixaSigcbController',
             'PhpBoletoZf2\Controller\Itau' => 'PhpBoletoZf2\Controller\ItauController',
         ),
     ),
@@ -81,14 +71,15 @@ return array(
         'exception_template' => 'error/index',
         'template_map' => array(
             'layout/boleto' => __DIR__ . '/../view/layout/boleto.phtml',
-            'php-boleto-zf2/bb/demo' => __DIR__ . '/../view/php-boleto-zf2/bb/demo.phtml',
-            'php-boleto-zf2/bb/index' => __DIR__ . '/../view/php-boleto-zf2/bb/index.phtml',
-            'php-boleto-zf2/bradesco/demo' => __DIR__ . '/../view/php-boleto-zf2/bradesco/demo.phtml',
-            'php-boleto-zf2/bradesco/index' => __DIR__ . '/../view/php-boleto-zf2/bradesco/index.phtml',
-            'php-boleto-zf2/caixa-sigcb/demo' => __DIR__ . '/../view/php-boleto-zf2/caixa-sigcb/demo.phtml',
-            'php-boleto-zf2/caixa-sigcb/index' => __DIR__ . '/../view/php-boleto-zf2/caixa-sigcb/index.phtml',
-            'php-boleto-zf2/itau/demo' => __DIR__ . '/../view/php-boleto-zf2/itau/demo.phtml',
+//            'php-boleto-zf2/bb/demo' => __DIR__ . '/../view/php-boleto-zf2/bb/demo.phtml',
+//            'php-boleto-zf2/bb/index' => __DIR__ . '/../view/php-boleto-zf2/bb/index.phtml',
+//            'php-boleto-zf2/bradesco/demo' => __DIR__ . '/../view/php-boleto-zf2/bradesco/demo.phtml',
+//            'php-boleto-zf2/bradesco/index' => __DIR__ . '/../view/php-boleto-zf2/bradesco/index.phtml',
+//            'php-boleto-zf2/caixa-sigcb/demo' => __DIR__ . '/../view/php-boleto-zf2/caixa-sigcb/demo.phtml',
+//            'php-boleto-zf2/caixa-sigcb/index' => __DIR__ . '/../view/php-boleto-zf2/caixa-sigcb/index.phtml',
+//            'php-boleto-zf2/itau/demo' => __DIR__ . '/../view/php-boleto-zf2/itau/demo.phtml',
             'php-boleto-zf2/itau/index' => __DIR__ . '/../view/php-boleto-zf2/itau/index.phtml',
+//            'php-boleto-zf2/sandanter/index' => __DIR__ . '/../view/php-boleto-zf2/santander/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',

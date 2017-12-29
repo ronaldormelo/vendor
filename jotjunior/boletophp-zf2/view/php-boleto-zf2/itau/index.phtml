@@ -5,7 +5,7 @@
             <?php echo $this->dados->getCedente()->getIdentificacao(); ?>
         </TITLE>
         <META http-equiv=Content-Type content=text/html charset=utf-8>
-        <meta name="Generator" content="Projeto BoletoPHP - www.boletophp.com.br - Licença GPL" />
+        <meta name="Generator" content="GanheMais.net - Licença GPL" />
         <style type=text/css>
             .cp {  font: bold 10px Arial; color: black}
             .ti {  font: 9px Arial, Helvetica, sans-serif}
@@ -34,7 +34,7 @@
                             <li>Caso não apareça o código de barras no final, pressione a tecla F5 para atualizar esta tela.<li>Caso tenha problemas ao imprimir, copie a sequência numérica abaixo e pague no caixa eletrônico ou no internet banking:<br />
                                 <br />
                                 <span class="ld2">&nbsp;&nbsp;&nbsp;&nbsp;Linha Digitável: &nbsp;<img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" />
-                                    <br />&nbsp;&nbsp;&nbsp;&nbsp;Valor: &nbsp;&nbsp;R$ <?php echo number_format($this->dados->getBoleto()->getValor() / 100, 2, ",", "") ?>
+                                    <br />&nbsp;&nbsp;&nbsp;&nbsp;Valor: &nbsp;&nbsp;R$ <?php echo number_format($this->dados->getBoleto()->getValor(), 2, ",", "") ?>
                                     <br />
                                 </span>
                             </li>
@@ -225,7 +225,7 @@
                     <td class=ct valign=top width=7 height=13>
                         <img height=13 src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAATAQMAAABrxfVaAAAAA1BMVEUAAACnej3aAAAADElEQVR42mNgIAYAAAAmAAEy2MJFAAAAAElFTkSuQmCC width=1 border=0>
                     </td>
-                    <td class=ct valign=top colspan=3 height=13>Número do documento</td>
+                    <td class=ct valign=top colspan=3 height=13>Número do documento / Ref.</td>
                     <td class=ct valign=top width=7 height=13>
                         <img height=13 src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAATAQMAAABrxfVaAAAAA1BMVEUAAACnej3aAAAADElEQVR42mNgIAYAAAAmAAEy2MJFAAAAAElFTkSuQmCC width=1 border=0>
                     </td>
@@ -269,7 +269,7 @@
                     </td>
                     <td class=cp valign=top align=right width=180 height=12>
                         <span class="campo">
-                            <?php echo number_format($this->dados->getBoleto()->getValor() / 100, 2, ",", ".") ?>
+                            <?php echo number_format($this->dados->getBoleto()->getValor(), 2, ",", ".") ?>
                         </span>
                     </td>
                 </tr>
@@ -623,7 +623,7 @@
                         do documento</td>
                     <td class=ct valign=top width=7 height=13> <img height=13 src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAATAQMAAABrxfVaAAAAA1BMVEUAAACnej3aAAAADElEQVR42mNgIAYAAAAmAAEy2MJFAAAAAElFTkSuQmCC width=1 border=0>
                     </td>
-                    <td class=ct valign=top width=153 height=13>N&ordm; documento</td>
+                    <td class=ct valign=top width=153 height=13>N&ordm; documento / Ref.</td>
                     <td class=ct valign=top width=7 height=13> <img height=13 src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAATAQMAAABrxfVaAAAAA1BMVEUAAACnej3aAAAADElEQVR42mNgIAYAAAAmAAEy2MJFAAAAAElFTkSuQmCC width=1 border=0>
                     </td>
                     <td class=ct valign=top width=62 height=13>Espécie doc.</td>
@@ -636,7 +636,7 @@
                     <td class=ct valign=top width=82 height=13>Data processamento</td>
                     <td class=ct valign=top width=7 height=13> <img height=13 src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAATAQMAAABrxfVaAAAAA1BMVEUAAACnej3aAAAADElEQVR42mNgIAYAAAAmAAEy2MJFAAAAAElFTkSuQmCC width=1 border=0>
                     </td>
-                    <td class=ct valign=top width=180 height=13>Nosso núero</td>
+                    <td class=ct valign=top width=180 height=13>Nosso número</td>
                 </tr>
                 <tr>
                     <td class=cp valign=top width=7 height=12>
@@ -801,14 +801,14 @@
                     </td>
                     <td class=cp valign=top  width=72>
                         <span class="campo">
-                            <?php echo number_format($this->dados->getBoleto()->getValorUnitario() / 100, 2, ",", ".") ?>
+                            <?php echo number_format($this->dados->getBoleto()->getValorUnitario(), 2, ",", ".") ?>
                         </span>
                     </td>
                     <td class=cp valign=top width=7 height=12> <img height=12 src=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAATAQMAAABrxfVaAAAAA1BMVEUAAACnej3aAAAADElEQVR42mNgIAYAAAAmAAEy2MJFAAAAAElFTkSuQmCC width=1 border=0>
                     </td>
                     <td class=cp valign=top align=right width=180 height=12>
                         <span class="campo">
-                            <?php echo number_format($this->dados->getBoleto()->getValor() / 100, 2, ",", ".") ?>
+                            <?php echo number_format($this->dados->getBoleto()->getValor(), 2, ",", ".") ?>
                         </span>
                     </td>
                 </tr>
