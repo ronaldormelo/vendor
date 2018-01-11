@@ -10,5 +10,6 @@ return array(
     'Garethellis\\CrontabScheduleGenerator\\' => array($vendorDir . '/garethellis/crontab-schedule-generator/src'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
     'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
+    'Cron\\' => array($vendorDir . '/mtdowling/cron-expression/src/Cron'),
     'Assert\\' => array($vendorDir . '/beberlei/assert/lib/Assert'),
 );

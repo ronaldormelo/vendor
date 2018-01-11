@@ -28,6 +28,10 @@ class ComposerStaticInit7ae61d5b784d919ea69267cf2ce2ca36
         array (
             'Dompdf\\' => 7,
         ),
+        'C' => 
+        array (
+            'Cron\\' => 5,
+        ),
         'A' => 
         array (
             'Assert\\' => 7,
@@ -50,6 +54,10 @@ class ComposerStaticInit7ae61d5b784d919ea69267cf2ce2ca36
         'Dompdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
+        ),
+        'Cron\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
         ),
         'Assert\\' => 
         array (
